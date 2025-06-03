@@ -16,12 +16,13 @@ import {
   LineElement,
   ArcElement,
 } from "chart.js";
-import { Bar, Line, Doughnut } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import {
   featureUsageData,
   userSegmentationData,
   executionTimeData,
-  chartOptions,
+  barChartOptions,
+  lineChartOptions,
 } from "@/lib/dummyData";
 
 // Register ChartJS components
@@ -84,7 +85,7 @@ export default function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="h-[350px]">
-              <Bar options={chartOptions} data={featureUsageData} />
+              <Bar options={barChartOptions} data={featureUsageData} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -98,7 +99,7 @@ export default function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="h-[350px]">
-              <Bar options={chartOptions} data={userSegmentationData} />
+              <Bar options={barChartOptions} data={userSegmentationData} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -112,7 +113,7 @@ export default function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="h-[350px]">
-              <Line options={chartOptions} data={executionTimeData} />
+              <Line options={lineChartOptions} data={executionTimeData} />
             </CardContent>
           </Card>
         </TabsContent>

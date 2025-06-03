@@ -39,7 +39,17 @@ export const executionTimeData = {
   ],
 };
 
-export const chartOptions: ChartOptions = {
+export const barChartOptions: ChartOptions<"bar"> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+  },
+};
+
+export const lineChartOptions: ChartOptions<"line"> = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
