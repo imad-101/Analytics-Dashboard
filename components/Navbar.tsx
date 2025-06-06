@@ -18,13 +18,13 @@ const Navbar = () => {
   return (
     <nav className="p-3 px flex items-center justify-between sticky top-0 bg-background z-10 border-b">
       {/* LEFT */}
-      <SidebarTrigger />
+      <SidebarTrigger className="ml-3" />
       {/* <Button variant="outline" onClick={toggleSidebar}>
         Custom Button
       </Button> */}
       {/* RIGHT */}
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mr-5">
         {/* THEME MENU */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

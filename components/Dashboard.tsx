@@ -398,7 +398,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6 md:p-10 space-y-6">
+    <div className="min-h-screen bg-background pt-0 p-6 md:p-10 space-y-6">
       {/* Header */}
       <header className="space-y-1">
         <h1 className="text-3xl font-bold tracking-tight text-primary">
@@ -434,40 +434,40 @@ export default function Dashboard() {
 
       {/* Tabs */}
       <Tabs defaultValue="feature-usage" className="w-full space-y-4">
-        <TabsList className="flex gap-2 bg-muted p-2 rounded-md w-fit">
+        <TabsList className="grid grid-cols-2 md:flex md:flex-row gap-2 bg-muted p-2 rounded-md w-full md:w-fit overflow-x-auto">
           <TabsTrigger
             value="feature-usage"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             Feature Usage
           </TabsTrigger>
           <TabsTrigger
             value="events-over-time"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             Events Over Time
           </TabsTrigger>
           <TabsTrigger
             value="user-activity"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             User Activity
           </TabsTrigger>
           <TabsTrigger
             value="subscriptions"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             Subscriptions
           </TabsTrigger>
           <TabsTrigger
             value="platforms"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             Platforms
           </TabsTrigger>
           <TabsTrigger
             value="environments"
-            className="px-4 py-2 text-sm font-medium"
+            className="px-4 py-2 text-sm font-medium whitespace-nowrap flex-grow"
           >
             Environments
           </TabsTrigger>

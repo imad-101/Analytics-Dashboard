@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 
 import { UserEvent } from "@/app/models/UserEvent";
+import { connectToDatabase } from "@/lib/mongodb";
 
 export async function GET() {
   try {
+    // Ensure DB connection before any model usage (safe, read-only)
+    await connectToDatabase();
     console.log("Connecting to database...");
-
     console.log("Database connected successfully");
 
     // Test the connection with a simple query first

@@ -4,15 +4,10 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import {
   LayoutDashboard,
-  Search,
   BarChart3,
   Users,
-  Settings,
-  HelpCircle,
-  FileText,
-  Zap,
-  Bell,
-  MessageSquare,
+  CreditCard,
+  Search,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,60 +22,29 @@ import {
 
 const navigation = [
   {
-    name: "Dashboard",
-    href: "/dashboard",
+    name: "Overview",
+    href: "/",
     icon: LayoutDashboard,
   },
   {
-    name: "Search Analytics",
-    href: "/search-analytics",
-    icon: Search,
-  },
-  {
-    name: "Performance",
-    href: "/performance",
+    name: "Feature Usage",
+    href: "/?tab=feature-usage",
     icon: BarChart3,
   },
   {
-    name: "User Insights",
-    href: "/user-insights",
+    name: "User Activity",
+    href: "/?tab=user-activity",
     icon: Users,
   },
   {
-    name: "Reports",
-    href: "/reports",
-    icon: FileText,
-  },
-];
-
-const tools = [
-  {
-    name: "Quick Actions",
-    href: "/quick-actions",
-    icon: Zap,
+    name: "Subscriptions",
+    href: "/?tab=subscriptions",
+    icon: CreditCard,
   },
   {
-    name: "Notifications",
-    href: "/notifications",
-    icon: Bell,
-  },
-  {
-    name: "Feedback",
-    href: "/feedback",
-    icon: MessageSquare,
-  },
-];
-
-const support = [
-  {
-    name: "Settings",
-    href: "/settings",
-    icon: Settings,
-  },
-  {
-    name: "Help Center",
-    href: "/help",
-    icon: HelpCircle,
+    name: "Platform Stats",
+    href: "/?tab=platforms",
+    icon: Search,
   },
 ];
 
@@ -92,7 +56,7 @@ export function AppSidebar() {
   return (
     <Sidebar
       collapsible="icon"
-      className="border-r"
+      className="border-r bg-background"
       style={
         {
           "--sidebar-width-icon": "4rem",
@@ -121,68 +85,18 @@ export function AppSidebar() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="px-2 py-4">
+      <SidebarContent className="px-2 pl-4 py-6">
         <SidebarMenu>
           <div className="space-y-1">
             <h2
               className={cn(
-                "mb-2 px-2 text-xs font-semibold tracking-tight text-muted-foreground",
+                "mb-2 px-2 text-xs font-semibold tracking-tight text-muted-foreground uppercase",
                 state === "collapsed" && "hidden"
               )}
             >
-              Main
+              Analytics
             </h2>
             {navigation.map((item) => (
-              <SidebarMenuButton
-                key={item.name}
-                asChild
-                isActive={pathname === item.href}
-                tooltip={item.name}
-                className="w-full justify-start"
-              >
-                <Link href={item.href} className="flex items-center gap-3">
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{item.name}</span>
-                </Link>
-              </SidebarMenuButton>
-            ))}
-          </div>
-
-          <div className="space-y-1 mt-6">
-            <h2
-              className={cn(
-                "mb-2 px-2 text-xs font-semibold tracking-tight text-muted-foreground",
-                state === "collapsed" && "hidden"
-              )}
-            >
-              Tools
-            </h2>
-            {tools.map((item) => (
-              <SidebarMenuButton
-                key={item.name}
-                asChild
-                isActive={pathname === item.href}
-                tooltip={item.name}
-                className="w-full justify-start"
-              >
-                <Link href={item.href} className="flex items-center gap-3">
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{item.name}</span>
-                </Link>
-              </SidebarMenuButton>
-            ))}
-          </div>
-
-          <div className="space-y-1 mt-6">
-            <h2
-              className={cn(
-                "mb-2 px-2 text-xs font-semibold tracking-tight text-muted-foreground",
-                state === "collapsed" && "hidden"
-              )}
-            >
-              Support
-            </h2>
-            {support.map((item) => (
               <SidebarMenuButton
                 key={item.name}
                 asChild
