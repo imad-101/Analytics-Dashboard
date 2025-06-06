@@ -130,9 +130,7 @@ const COLORS = [
 ];
 
 export default function Dashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
-    null
-  );
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -142,20 +140,14 @@ export default function Dashboard() {
         const response = await fetch("/api/analytics");
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(
-            errorData.details || errorData.error || "Failed to fetch data"
-          );
+          throw new Error(errorData.details || errorData.error || "Failed to fetch data");
         }
         const data = await response.json();
         setDashboardData(data);
         setError(null);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError(
-          error instanceof Error
-            ? error.message
-            : "Failed to load dashboard data"
-        );
+        setError(error instanceof Error ? error.message : "Failed to load dashboard data");
       } finally {
         setLoading(false);
       }
@@ -169,9 +161,7 @@ export default function Dashboard() {
       <div className="min-h-screen bg-background p-6 md:p-10 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">
-            Loading dashboard data...
-          </p>
+          <p className="mt-4 text-muted-foreground">Loading dashboard data...</p>
         </div>
       </div>
     );
@@ -181,16 +171,28 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-background p-6 md:p-10 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-500 mb-2">
-            Error Loading Dashboard
-          </h2>
+          <h2 className="text-2xl font-bold text-red-500 mb-2">Error Loading Dashboard</h2>
           <p className="text-muted-foreground">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
+          <button 
+            onClick={() => window.location.reload()} 
             className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
             Retry
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if we have any data
+  const hasData = dashboardData?.eventTypesDistribution.length > 0;
+
+  if (!hasData) {
+    return (
+      <div className="min-h-screen bg-background p-6 md:p-10 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-muted-foreground mb-2">No Data Available</h2>
+          <p className="text-muted-foreground">Start collecting user events to see analytics</p>
         </div>
       </div>
     );

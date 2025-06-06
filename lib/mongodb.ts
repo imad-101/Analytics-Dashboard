@@ -6,16 +6,33 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
+let isConnected = false;
+
 export async function connectToDatabase() {
   try {
-    if (mongoose.connection.readyState >= 1) {
+    if (isConnected) {
       return { db: mongoose.connection.db };
     }
 
-    await mongoose.connect(MONGODB_URI);
+    console.log("Connecting to MongoDB Atlas...");
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
+      family: 4,
+      maxPoolSize: 10,
+      minPoolSize: 5,
+    });
+
+    isConnected = true;
+    console.log("MongoDB Atlas connected successfully");
     return { db: mongoose.connection.db };
   } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    throw error;
+    console.error("MongoDB Atlas connection error:", error);
+    isConnected = false;
+    throw new Error(
+      `Failed to connect to MongoDB Atlas: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
   }
 }

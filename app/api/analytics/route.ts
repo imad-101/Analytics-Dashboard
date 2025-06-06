@@ -1,10 +1,38 @@
 import { NextResponse } from "next/server";
-
+import { connectToDatabase } from "@/lib/mongodb";
 import { UserEvent } from "@/app/models/UserEvent";
 
 export async function GET() {
   try {
+    console.log("Connecting to database...");
+    const { db } = await connectToDatabase();
+    console.log("Database connected successfully");
+
+    // Test the connection with a simple query first
+    const testCount = await UserEvent.countDocuments();
+    console.log(`Found ${testCount} documents in the collection`);
+
+    if (testCount === 0) {
+      // If no data exists, return empty arrays instead of error
+      return NextResponse.json({
+        eventTypesDistribution: [],
+        eventsOverTime: [],
+        userActivityByHour: [],
+        subscriptionStatus: [],
+        platformEngagement: [],
+        featureUsageBySubscription: [],
+        environmentEngagement: [],
+        userRetention: {
+          avgDaysActive: 0,
+          avgEventsPerUser: 0,
+          avgUniqueEventTypes: 0,
+          totalUsers: 0,
+        },
+      });
+    }
+
     // 1. Event Types Distribution
+    console.log("Fetching event types distribution...");
     const eventTypesDistribution = await UserEvent.aggregate([
       {
         $group: {
@@ -23,6 +51,7 @@ export async function GET() {
       },
       { $sort: { value: -1 } },
     ]);
+    console.log("Event types distribution fetched successfully");
 
     // 2. Events Over Time (Last 7 days)
     const sevenDaysAgo = new Date();
@@ -228,9 +257,12 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error("Error fetching analytics:", error);
+    console.error("Detailed error in analytics route:", error);
     return NextResponse.json(
-      { error: "Failed to fetch analytics data" },
+      {
+        error: "Failed to fetch analytics data",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

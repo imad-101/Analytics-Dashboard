@@ -71,6 +71,7 @@ const UserEventSchema = new Schema(
     },
   },
   {
+    collection: "userevents",
     strict: false, // Allows for additional fields that aren't defined in the schema
   }
 );
